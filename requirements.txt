@@ -1,0 +1,6 @@
+streamlit
+sqlite3
+sqlalchemy
+xlsxwriter
+pandas
+numpy
