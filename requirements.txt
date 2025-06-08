@@ -1,7 +1,11 @@
-streamlit
+fastapi
+uvicorn[standard]
 sqlalchemy
-xlsxwriter
-pandas
-numpy
-plotly
 yfinance
+requests
+pandas
+python-multipart
+streamlit
+xlsxwriter
+streamlit
+cachetools
