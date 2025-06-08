@@ -1,0 +1,47 @@
+# ⛔ Ambientes virtuais
+venv/
+.env
+*.env
+
+# 🐍 Arquivos Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 📁 Arquivos do banco de dados
+data/ativos.db
+*.sqlite3
+*.db
+
+# 📦 Dependências
+*.egg-info/
+dist/
+build/
+
+# 🧠 PyCharm / IntelliJ
+.idea/
+*.iml
+
+# 📊 Arquivos de Excel, CSV e planilhas
+*.xlsx
+*.xls
+*.csv
+
+# 📂 Pasta de prompts (ex: textos e planilhas de entrada)
+Prompts/
+
+# 🔍 Arquivos de log e temporários
+*.log
+*.tmp
+*.bak
+*.swp
+
+# 📝 Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# 📁 Pasta do Streamlit (cache de execução)
+.streamlit/
+
+# 👤 Arquivos pessoais/usuário
+*.bak

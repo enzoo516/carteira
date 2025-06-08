@@ -1,0 +1,16 @@
+Objetivo do Aplicativo:
+
+O aplicativo fará o cadastro de ativos da carteira de um cliente em um banco de dados(SQLITE) através de um frontend streamlit.
+
+Vamos separar por módulos. Primeiro crie o módulo 'Ativos' em que o usuário poderá cadastrar os ativos da carteira, informando o Nome do ativo, Tipo de Ativo, Operação, Data de Operação, Preço e Quantidade. Os campos Tipo de Ativo e Operação devem ser droplists com opções prédefinidas, as opções estão na tabela ativo, e a Data da Operação o usuário poderá escolher a data.
+
+Vamos mudar o nome de ativos para operações, eu quero que dentro do módulo operações tenha 2 abas 'Cadastro' e 'Lista de Operações'. Na aba de cadastro terá apenas o formulário de cadastro da operação. Enquanto na aba Lista de Operações terá todas as operações cadastradas, com a possibilidade do usuário escolher, uma operação caso for edita-la, ou varias caso for deletar.
+
+Para a edição de uma operação, vamos criar uma aba invisível no módulo operações de forma que o usuário não consiga ver ou acessar de forma manual. Nessa aba haverá o mesmo formulário que o de cadastro, mas nele ja será carregado os dados da operação a ser editada.
+
+
+Vamos dar um passo atrás. Na barra lateral em cima do módulo, operações vai ter o módulo 'Ativos', vamos separar a tabela ativos que mandei anteriormente em 2 tabelas, Ativos e Operações. No módulo Ativos vai contes as abas 'Cadastro' e 'Lista de Ativos'. Na aba Cadastro vai ter os campos Ticker do Ativo(exemplo: XPML11) e Tipo de Ativo que deve seguir as especificações da tabela. No módulo operações vamos modificar os campos Nome do Ativo, para Ticker do Ativo e ele será uma droplist com todos os ativos cadastrados no módulo ativos. O Tipo de Ativo deve ser preenchido automaticamente e não pode ser editável.
+
+Vamos para o próximo módulo. Crie o Módulo 'Informações' que terá as informações de cada Ativo. o Módulo será parecido com a Lista de Operações ele será uma tabela, não editável, que terá o Total Investido, o Rendimento da Carteira, considerando valorização, desvalorização, dividendos e jcp. Quero que mostre o Rendimento desde o Inicio da Carteira, Rendimento do Mês e Rendimento Diário. Na tabela o usuário poderá seleciona um ativo para saber o rendimento especifico dele. E também inclua como ele performou contra o CDI. No momento vamos apenas fazer o front do módulo em seguida vou especificar de onde e como vamos puxar os dados que não temos no momento.
+
+Para conseguir as informações do ativo, podemos usar o yahoo finance, informando o ticker dos ativos (lembrando que os ativos sempre seguem o padrão 'sigla.SA' então XPML11 fica XPML11.SA). Para conseguir informações do CDI podemos utilizar a api do banco central csv_serie-sgs-11, podemos utilizar outra se tiver uma solução melhor. A aba de Noticias não será necessária. Se nenhum filtro for selecionado, mostre todos os Ativos.

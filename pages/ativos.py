@@ -66,26 +66,58 @@ def show_lista_ativos():
             st.info("Nenhum ativo cadastrado ainda.")
             return
 
+        # Criar DataFrame com os dados
         data = []
         for ativo in ativos:
             data.append({
                 "ID": ativo.id,
                 "Ticker": ativo.ticker,
                 "Tipo": ativo.tipo_ativo,
-                "Qtd. Operações": len(ativo.operacoes)
+                "Qtd. Operações": len(ativo.operacoes),
+                "Excluir": False  # Coluna para o checkbox
             })
 
-        st.dataframe(
+        # Criar um editor de dataframe com a opção de exclusão
+        edited_df = st.data_editor(
             data,
             column_config={
                 "ID": st.column_config.NumberColumn("ID", width="small"),
                 "Ticker": "Ticker",
                 "Tipo": "Tipo de Ativo",
-                "Qtd. Operações": "Quantidade de Operações"
+                "Qtd. Operações": "Quantidade de Operações",
+                "Excluir": st.column_config.CheckboxColumn("Excluir?", default=False)
             },
             hide_index=True,
-            use_container_width=True
+            use_container_width=True,
+            key="editor_ativos"
         )
+
+        # Botão para confirmar exclusão
+        if st.button("Excluir Selecionados", type="primary"):
+            # Filtrar apenas os ativos marcados para exclusão
+            to_delete = [row["ID"] for row in edited_df if row["Excluir"]]
+            
+            if not to_delete:
+                st.warning("Nenhum ativo selecionado para exclusão!")
+                return
+
+            try:
+                # Excluir cada ativo selecionado
+                deleted_count = 0
+                for ativo_id in to_delete:
+                    ativo = session.query(Ativo).get(ativo_id)
+                    if ativo:
+                        session.delete(ativo)
+                        deleted_count += 1
+                
+                session.commit()
+                st.success(f"{deleted_count} ativo(s) excluído(s) com sucesso!")
+                st.rerun()  # Recarregar a página para atualizar a lista
+            except Exception as e:
+                session.rollback()
+                st.error(f"Erro ao excluir ativos: {e}")
+            finally:
+                session.remove()
 
     except Exception as e:
         st.error(f"Erro ao carregar ativos: {e}")
